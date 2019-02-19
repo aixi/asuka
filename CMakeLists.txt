@@ -44,6 +44,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 link_libraries(pthread)
 
 add_subdirectory(asuka/coroutine)
+add_subdirectory(asuka/tests)
 
 if (NOT CMAKE_BUILD_NO_EXAMPLES)
     add_subdirectory(examples)

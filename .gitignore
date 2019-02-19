@@ -107,3 +107,6 @@ target
 .classpath
 .project
 .settings
+
+# binary file folder
+bin/
