@@ -39,14 +39,11 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
-include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("${PROJECT_SOURCE_DIR}/third_party")
-
-link_directories("${PROJECT_SOURCE_DIR}/third_party")
+include_directories(${PROJECT_SOURCE_DIR})
 
 link_libraries(pthread)
 
-add_subdirectory(asuka)
+add_subdirectory(asuka/coroutine)
 
 if (NOT CMAKE_BUILD_NO_EXAMPLES)
     add_subdirectory(examples)
