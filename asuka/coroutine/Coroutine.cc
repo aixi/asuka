@@ -18,7 +18,7 @@ unsigned int Coroutine::s_id_ = 0;
 
 Coroutine::Coroutine(size_t stack_size) :
     id_(++s_id_),
-    state_(State::kInit),
+    state_(State::kNotInit),
     stack_(std::max(stack_size, kDefaultStackSize))
 {
     if (this == &main_)
@@ -42,7 +42,7 @@ Coroutine::Coroutine(size_t stack_size) :
 
 VoidPtr Coroutine::Send(const CoroutinePtr& co, VoidPtr args)
 {
-    if (co->state_ == Coroutine::State::kFinish)
+    if (co->state_ == Coroutine::State::kFinished)
     {
         throw std::runtime_error("Send value to finished coroutine");
     }
@@ -72,7 +72,7 @@ VoidPtr Coroutine::SendImpl(Coroutine* co_ptr, VoidPtr args)
     if (args)
     {
         // behave like Python generator
-        if (co_ptr->state_ == State::kInit && co_ptr != &Coroutine::main_)
+        if (co_ptr->state_ == State::kNotInit && co_ptr != &Coroutine::main_)
         {
             throw std::runtime_error("Can't send non-void value to a just-created coroutine");
         }
@@ -102,7 +102,7 @@ void Coroutine::Run(Coroutine* co_ptr)
     {
         co_ptr->func_();
     }
-    co_ptr->state_ = State::kFinish;
+    co_ptr->state_ = State::kFinished;
     co_ptr->Yield(co_ptr->result_);
 }
 

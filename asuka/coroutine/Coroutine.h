@@ -28,9 +28,9 @@ public:
 
     enum class State
     {
-        kInit,
+        kNotInit,
         kRunning,
-        kFinish
+        kFinished
     };
 
     // works like python decorator: warp the func_ to a Coroutine
