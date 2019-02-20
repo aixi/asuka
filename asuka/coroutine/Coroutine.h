@@ -94,7 +94,7 @@ public:
     Coroutine& operator=(Coroutine&&) = delete;
 
 private:
-    VoidPtr SendImpl(Coroutine* co_ptr, VoidPtr args = VoidPtr(nullptr)); // pass by value will ++ref_count;
+    VoidPtr SendImpl(Coroutine* co_ptr, VoidPtr args = VoidPtr(nullptr)); // pass by value and move
 
     VoidPtr YieldImpl(VoidPtr args = VoidPtr(nullptr));
 
