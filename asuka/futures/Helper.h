@@ -28,7 +28,7 @@ struct TryWrapper;
 namespace detail
 {
 
-// FIXME: using std::result_of ?
+// FIXME: std::result_of ?
 // why it is needed ?
 
 template <typename F, typename... Args>
