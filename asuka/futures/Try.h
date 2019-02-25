@@ -379,11 +379,11 @@ struct TryWrapper
 
 // SFINAE
 
-// Warp function f(...) return by Try<T>
+// Wrap function f(...) return by Try<T>
 template <typename F, typename... Args>
 std::enable_if_t<!std::is_same_v<std::result_of_t<F(Args...)>, void>,
          typename TryWrapper<std::result_of_t<F(Args...)>>::Type>
-WarpWithTry(F&& f, Args&&... args)
+WrapWithTry(F&& f, Args&&... args)
 {
     using Type = std::result_of_t<F(Args...)>;
     try
@@ -399,7 +399,7 @@ WarpWithTry(F&& f, Args&&... args)
 // Wrap void function f(...) return by Try<void>
 template <typename F, typename... Args>
 std::enable_if_t<std::is_same_v<std::result_of_t<F(Args...)>, void>, Try<void>>
-WarpWithTry(F&& f, Args&&... args)
+WrapWithTry(F&& f, Args&&... args)
 {
     try
     {
@@ -413,11 +413,11 @@ WarpWithTry(F&& f, Args&&... args)
 }
 
 // f's arg is void, but return Type
-// Warp return value of function Type f(void) by Try<Type>
+// Wrap return value of function Type f(void) by Try<Type>
 template <typename F>
 std::enable_if_t<!std::is_same_v<std::result_of_t<F()>, void>,
 typename TryWrapper<std::result_of_t<F()>>::Type>
-WarpWithTry(F&& f, Try<void>&& arg)
+WrapWithTry(F&& f, Try<void>&& arg)
 {
     using Type = std::result_of_t<F()>;
     try
